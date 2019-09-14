@@ -3,7 +3,11 @@
 */
 
 :root {
-  /*variables*/
+  --tiny-spacing: 3px;
+  --little-spacing: 6px;
+  --medium-spacing: 12px;
+  --large-spacing: 24px;
+  --big-spacing: 30px
 }
 
 /*
@@ -41,6 +45,17 @@ body {
   height: 75%;
   width: 65%;
   flex-direction: column;
+  border: var(--little-spacing) solid black;
+  border-radius: var(--medium-spacing);
+  padding: var(--large-spacing);
+}
+
+/*
+  Box
+*/
+
+.box {
+  padding: var(--medium-spacing);
 }
 
 /*
