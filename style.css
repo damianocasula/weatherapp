@@ -215,12 +215,22 @@ input.search-button:hover {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  padding: var(--little-spacing);
+  padding: var(--little-spacing) var(--tiny-spacing);
+  margin: 0 calc(var(--tiny-spacing) + .2vh + .35vw);
+  border-radius: calc(var(--medium-spacing) * .75);
+  cursor: pointer;
+}
+
+.tile:hover {
+  background-image: linear-gradient(to bottom, transparent, rgba(250, 250, 250, .125));
+}
+
+.tile:active {
+  background-image: linear-gradient(to bottom, transparent, rgba(250, 250, 250, .15));
 }
 
 .tile:nth-child(1) {
   background-image: linear-gradient(to bottom, transparent, rgba(250, 250, 250, .175));
-  border-radius: calc(var(--medium-spacing) * .75);
 }
 
 .tile-icon {
@@ -229,6 +239,34 @@ input.search-button:hover {
   justify-content: center;
   align-items: center;
   padding: var(--medium-spacing) 0;
+}
+
+@media (max-width: 2500px) {
+  .timeline {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 2000px) {
+  .timeline {
+    font-size: 1.25rem;
+  }
+
+  .feather {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 1500px) {
+  .timeline {
+    font-size: 1.225rem;
+  }
+
+  .feather {
+    width: 64px;
+    height: 64px;
+  }
 }
 
 @media (max-width: 1000px) {
@@ -255,8 +293,8 @@ input.search-button:hover {
 
 @media (max-width: 750px) {
   .feather {
-    width: 74px;
-    height: 74px;
+    width: 60px;
+    height: 60px;
   }
 }
 
@@ -267,8 +305,8 @@ input.search-button:hover {
   }
 
   .feather {
-    width: 73px;
-    height: 73px;
+    width: 56px;
+    height: 56px;
   }
 
   .tile:nth-child(5) {
@@ -282,8 +320,8 @@ input.search-button:hover {
   }
 
   .feather {
-    width: 72px;
-    height: 72px;
+    width: 52px;
+    height: 52px;
   }
 }
 
@@ -293,7 +331,7 @@ input.search-button:hover {
   }
 
   .feather {
-    width: 60px;
-    height: 60px;
+    width: 48px;
+    height: 48px;
   }
 }
