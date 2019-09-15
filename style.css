@@ -68,9 +68,9 @@ body {
   border: var(--little-spacing) solid #fefefe;
   border-radius: calc(var(--medium-spacing) * 1.25);
   padding: var(--large-spacing);
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
-  background-color: rgba(255, 255, 255, .085);
+  -webkit-backdrop-filter: blur(var(--tiny-spacing));
+  backdrop-filter: blur(var(--tiny-spacing));
+  background-color: rgba(255, 255, 255, .08);
   box-shadow: 0 0 var(--medium-spacing) var(--tiny-spacing) rgba(25, 25, 25, .15);
 }
 
