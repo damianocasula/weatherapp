@@ -7,6 +7,7 @@
 
   <title>WeatherApp</title>
 
+  <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="style.css" async>
 </head>
 <body>
@@ -19,11 +20,78 @@
             <input type="submit" value="Search" class="search-button">
           </form>
         </div>
-        
+
         <div class="box info-box">info-box</div>
       </div>
-      <div class="box timeline-box">timeline-box</div>
+      <div class="box timeline-box">
+        <div class="timeline">
+          <div class="tile">
+            <div class="tile-day">Today</div>
+            <div class="tile-icon">
+              <i data-feather="sun"></i>
+            </div>
+            <div class="tile-temperature">12</div>
+          </div>
+
+          <div class="tile">
+            <div class="tile-day">Tue</div>
+            <div class="tile-icon">
+              <i data-feather="sun"></i>
+            </div>
+            <div class="tile-temperature">14</div>
+          </div>
+
+          <div class="tile">
+            <div class="tile-day">Wed</div>
+            <div class="tile-icon">
+              <i data-feather="sun"></i>
+            </div>
+            <div class="tile-temperature">13</div>
+          </div>
+
+          <div class="tile">
+            <div class="tile-day">Thu</div>
+            <div class="tile-icon">
+              <i data-feather="sun"></i>
+            </div>
+            <div class="tile-temperature">15</div>
+          </div>
+
+          <div class="tile">
+            <div class="tile-day">Fri</div>
+            <div class="tile-icon">
+              <i data-feather="sun"></i>
+            </div>
+            <div class="tile-temperature">16</div>
+          </div>
+
+          <div class="tile">
+            <div class="tile-day">Sat</div>
+            <div class="tile-icon">
+              <i data-feather="sun"></i>
+            </div>
+            <div class="tile-temperature">18</div>
+          </div>
+
+          <div class="tile">
+            <div class="tile-day">Sun</div>
+            <div class="tile-icon">
+              <i data-feather="sun"></i>
+            </div>
+            <div class="tile-temperature">17</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
+  <script>
+    feather.replace({
+      class: 'feather feather-x',
+      width: 85,
+      height: 85,
+      'stroke-width': 1
+    })
+  </script>
 </body>
 </html>
