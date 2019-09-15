@@ -199,7 +199,7 @@ input.search-button:hover {
 */
 
 .timeline-box {
-  height: 32.5%;
+  height: auto;
   text-align: center;
 }
 
@@ -228,20 +228,10 @@ input.search-button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-@media (max-width: 1075px) {
-  .feather {
-    width: 83px;
-    height: 83px;
-  }
+  padding: var(--medium-spacing) 0;
 }
 
 @media (max-width: 1000px) {
-  .timeline-box {
-    height: 30%;
-  }
-
   .timeline {
     grid-template-columns: repeat(6, 1fr);
     font-size: 1.12rem;
@@ -265,25 +255,20 @@ input.search-button:hover {
 
 @media (max-width: 750px) {
   .feather {
-    width: 81px;
-    height: 81px;
+    width: 74px;
+    height: 74px;
   }
 }
 
 @media (max-width: 750px) {
-  .timeline-box {
-    height: auto;
-    flex: .35;
-  }
-
   .timeline {
     grid-template-columns: repeat(4, 1fr);
     font-size: 1.11rem;
   }
 
   .feather {
-    width: 80px;
-    height: 80px;
+    width: 73px;
+    height: 73px;
   }
 
   .tile:nth-child(5) {
@@ -292,18 +277,13 @@ input.search-button:hover {
 }
 
 @media (max-width: 625px) {
-  .timeline-box {
-    height: auto;
-    flex: .3;
-  }
-
   .timeline {
     font-size: 1.1rem;
   }
 
   .feather {
-    width: 75px;
-    height: 75px;
+    width: 72px;
+    height: 72px;
   }
 }
 
