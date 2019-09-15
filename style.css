@@ -150,6 +150,10 @@ body {
   Search box
 */
 
+.search-box {
+  text-align: left;
+}
+
 .search-form {
   display: flex;
 }
@@ -187,6 +191,7 @@ input.search-button:hover {
 */
 
 .info-box {
+  text-align: right;
 }
 
 /*
