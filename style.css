@@ -172,6 +172,16 @@ input.search-button:hover {
   cursor: pointer;
 }
 
+@media (max-width: 1000px) {
+  input.search-bar {
+    flex: 2;
+  }
+
+  input.search-button {
+    flex: 1;
+  }
+}
+
 /*
   Info box
 */
