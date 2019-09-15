@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,300&display=swap');
 
 /*
   Variables
@@ -194,6 +194,22 @@ input.search-button:hover {
   text-align: right;
 }
 
+.info-icon .feather {
+  height: 96px;
+  width: 96px;
+}
+
+.info-brief, .info-temperature {
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.info-city {
+  opacity: .75;
+  font-weight: 300;
+  font-size: 1.2rem;
+}
+
 /*
   Timeline box
 */
@@ -252,7 +268,7 @@ input.search-button:hover {
     font-size: 1.25rem;
   }
 
-  .feather {
+  .timeline .feather {
     width: 80px;
     height: 80px;
   }
@@ -263,7 +279,7 @@ input.search-button:hover {
     font-size: 1.225rem;
   }
 
-  .feather {
+  .timeline .feather {
     width: 64px;
     height: 64px;
   }
@@ -292,7 +308,7 @@ input.search-button:hover {
 }
 
 @media (max-width: 750px) {
-  .feather {
+  .timeline .feather {
     width: 60px;
     height: 60px;
   }
@@ -304,7 +320,7 @@ input.search-button:hover {
     font-size: 1.11rem;
   }
 
-  .feather {
+  .timeline .feather {
     width: 56px;
     height: 56px;
   }
@@ -319,7 +335,7 @@ input.search-button:hover {
     font-size: 1.1rem;
   }
 
-  .feather {
+  .timeline .feather {
     width: 52px;
     height: 52px;
   }
@@ -330,7 +346,7 @@ input.search-button:hover {
     font-size: 1.05rem;
   }
 
-  .feather {
+  .timeline .feather {
     width: 48px;
     height: 48px;
   }
