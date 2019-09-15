@@ -218,6 +218,11 @@ input.search-button:hover {
   padding: var(--little-spacing);
 }
 
+.tile:nth-child(1) {
+  background-image: linear-gradient(to bottom, transparent, rgba(250, 250, 250, .175));
+  border-radius: calc(var(--medium-spacing) * .75);
+}
+
 .tile-icon {
   flex: 1;
   display: flex;
