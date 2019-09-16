@@ -217,6 +217,7 @@ input.search-button:hover {
 .timeline-box {
   height: auto;
   text-align: center;
+  padding: 0;
 }
 
 .timeline {
@@ -349,5 +350,11 @@ input.search-button:hover {
   .timeline .feather {
     width: 48px;
     height: 48px;
+  }
+}
+
+@media (max-width: 330px) {
+  .timeline {
+    font-size: 0.9rem;
   }
 }
