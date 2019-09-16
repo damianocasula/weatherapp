@@ -152,7 +152,6 @@ body {
 
 .search-box {
   text-align: left;
-  order: 0;
 }
 
 .search-form {
@@ -210,6 +209,13 @@ input.search-button:hover {
   opacity: .75;
   font-weight: 300;
   font-size: 1.2rem;
+}
+
+@media (max-width: 750px) {
+  .info-box {
+    text-align: left;
+    order: 0;
+  }
 }
 
 /*
