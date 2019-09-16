@@ -65,8 +65,22 @@ h3 {
 }
 
 /*
-  Toas
+  Toastify
 */
+
+div.toastify.on.toastify-right.toastify-top {
+  font-weight: 300;
+  opacity: .9;
+  border-radius: calc(var(--little-spacing));
+  font-size: 97%;
+  padding: calc(var(--little-spacing) * 1.5);
+}
+
+@media (max-width: 750px) {
+  div.toastify.on.toastify-right.toastify-top {
+    max-width: calc(100% - 30px);
+  }
+}
 
 /*
   Page
