@@ -13,6 +13,7 @@
   <script src="https://unpkg.com/feather-icons"></script>
 
   <link rel="stylesheet" href="style.css" async>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 <body>
   <div class="page">
@@ -23,9 +24,9 @@
             <i data-feather="sun"></i>
           </div>
 
-          <h2 class="info-brief">Clear Sky</h2>
-          <h3 class="info-city">San Francisco, California</h3>
-          <h2 class="info-temperature">12 <small>°C</small></h2>
+          <h2 class="info-brief" id="description">Clear Sky</h2>
+          <h3 class="info-city" id="location">San Francisco, California</h3>
+          <h2 class="info-temperature"><span id="temperature">13</span> <small class="temperature-unit">°C</small></h2>
         </div>
 
         <div class="box search-box">
@@ -35,10 +36,10 @@
           </div>
 
           <div class="weather-info">
-            <div class="weather-min-temp">Min: <span class="data">27</span> <span class="temperature-unit">°C</span></div>
-            <div class="weather-max-temp">Max: <span class="data">29 <span class="temperature-unit">°C</span></span></div>
-            <div class="weather-humidity">Humidity: <span class="data">70</span>%</div>
-            <div class="weather-pressure">Pressure: <span class="data">1019</span> <span class="pressure-unit">hPa</span></div>
+            <div class="weather-min-temp">Min: <span class="data" id="mintemp">27</span> <span class="temperature-unit">°C</span></div>
+            <div class="weather-max-temp">Max: <span class="data" id="maxtemp">29</span> <span class="temperature-unit">°C</span></div>
+            <div class="weather-humidity">Humidity: <span class="data" id="humidity">70</span>%</div>
+            <div class="weather-pressure">Pressure: <span class="data" id="pressure">1010</span> <span class="pressure-unit">hPa</span></div>
           </div>
 
           <form class="search-form">
@@ -119,6 +120,6 @@
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-  <script src="js/main.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>

@@ -53,7 +53,6 @@ h3 {
     min-height: 100vh;
   }
 }
-
 /*
   Page
 */
@@ -244,6 +243,10 @@ input.search-button:hover {
 .info-icon .feather {
   height: 96px;
   width: 96px;
+}
+
+.info-brief {
+  text-transform: capitalize;
 }
 
 .info-city {
