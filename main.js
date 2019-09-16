@@ -20,18 +20,18 @@ $(document).ready(() => {
   setTimeout(() => {
     Toastify({
       text: 'For example, for the italian city Milan: use Milan, Italy',
-      duration: 50000,
+      duration: 25000,
       close: true,
-      backgroundColor: 'rgba(0, 0, 0, .5)'
+      backgroundColor: 'rgba(0, 0, 0, .55)'
     }).showToast()
-  }, 4000)
+  }, 6000)
 
   setTimeout(() => {
     Toastify({
       text: 'If you don\'t find the city you want, try specifying its nation',
-      duration: 50000,
+      duration: 28000,
       close: true,
-      backgroundColor: 'rgba(0, 0, 0, .5)'
+      backgroundColor: 'rgba(0, 0, 0, .55)'
     }).showToast()
   }, 2000)
 
