@@ -22,7 +22,7 @@ $(document).ready(() => {
       text: 'For example, for the italian city Milan: use Milan, Italy',
       duration: 25000,
       close: true,
-      backgroundColor: 'rgba(0, 0, 0, .55)'
+      backgroundColor: 'rgba(25, 25, 25, .9)'
     }).showToast()
   }, 6000)
 
@@ -31,7 +31,7 @@ $(document).ready(() => {
       text: 'If you don\'t find the city you want, try specifying its nation',
       duration: 28000,
       close: true,
-      backgroundColor: 'rgba(0, 0, 0, .55)'
+      backgroundColor: 'rgba(25, 25, 25, .9)'
     }).showToast()
   }, 2000)
 
