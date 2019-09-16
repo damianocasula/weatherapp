@@ -152,6 +152,7 @@ body {
 
 .search-box {
   text-align: left;
+  order: 0;
 }
 
 .search-form {
@@ -192,6 +193,7 @@ input.search-button:hover {
 
 .info-box {
   text-align: right;
+  order: 1;
 }
 
 .info-icon .feather {
