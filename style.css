@@ -31,7 +31,7 @@ body {
   background-repeat: no-repeat;
 }
 
-small {
+.temperature-unit, .pressure-unit {
   font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: 300;
   opacity: .85;
@@ -178,6 +178,15 @@ h3 {
   justify-content: space-between;
 }
 
+.weather-info {
+  margin-top: var(--large-spacing);
+  font-size: 1.1rem;
+}
+
+.weather-info .data {
+  font-weight: 300;
+}
+
 .search-form {
   display: flex;
   margin-top: var(--large-spacing);
@@ -217,6 +226,12 @@ input.search-button:hover {
   }
 }
 
+@media (max-height: 750px) {
+  .weather-info {
+    display: none;
+  }
+}
+
 /*
   Info box
 */
@@ -251,8 +266,7 @@ input.search-button:hover {
 
 @media (max-height: 600px) {
   .info-icon .feather {
-    height: 64px;
-    width: 64px;
+    display: none;
   }
 }
 
