@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins:400,300&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,300|Roboto:300&display=swap');
 
 /*
   Variables
@@ -29,6 +29,13 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+small {
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 300;
+  opacity: .85;
+  font-size: 85%;
 }
 
 h2 {
@@ -228,7 +235,7 @@ input.search-button:hover {
 .timeline-box {
   height: auto;
   text-align: center;
-  padding: 0;
+  padding: var(--medium-spacing) 0;
 }
 
 .timeline {
