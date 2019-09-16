@@ -31,6 +31,16 @@ body {
   background-repeat: no-repeat;
 }
 
+h2 {
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+h3 {
+  font-weight: 300;
+  font-size: 1.2rem;
+}
+
 @media (max-width: 500px) {
   body {
     min-height: 100vh;
@@ -200,15 +210,8 @@ input.search-button:hover {
   width: 96px;
 }
 
-.info-brief, .info-temperature {
-  font-size: 2rem;
-  font-weight: 400;
-}
-
 .info-city {
   opacity: .75;
-  font-weight: 300;
-  font-size: 1.2rem;
 }
 
 @media (max-width: 750px) {
