@@ -61,7 +61,7 @@ $(document).ready(() => {
     }
   })
 
-  // Get browser location when user clicks on #browser-location-submit button
+  // TODO: Get browser location when user clicks on #browser-location-submit button
   $('#browser-location-submit').click(e => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
@@ -107,26 +107,10 @@ $(document).ready(() => {
 
       $('.day').each((i, element) => {
         const date = new Date(days[i].dt_txt)
+        const dayName = date.toString().split(' ')[0]
 
-        let month = ''
-
-        switch (date.getMonth()) {
-          case 0: month = 'Jan'; break
-          case 1: month = 'Feb'; break
-          case 2: month = 'Mar'; break
-          case 3: month = 'Apr'; break
-          case 4: month = 'May'; break
-          case 5: month = 'Jun'; break
-          case 6: month = 'Jul'; break
-          case 7: month = 'Aug'; break
-          case 8: month = 'Sep'; break
-          case 9: month = 'Oct'; break
-          case 10: month = 'Nov'; break
-          case 11: month = 'Dec'; break
-        }
-
-        $(element).children('h3').first().html(`${month} ${date.getDate()}`)
-        $(element).children('.daytemp-container').children('.daytemp').html(Math.round(days[i].main.temp))
+        $(element).children('.tile-day').first().html(`${dayName}`)
+        $(element).children('.tile-temperature').children('.data').html(Math.round(days[i].main.temp))
       })
 
       // Update background and icon depending on weather status
@@ -168,7 +152,7 @@ $(document).ready(() => {
 
     status = status.replace(' ', '-')
 
-    $('#page-background').css('background-image', `url('img/backgrounds/${status}.jpg')`)
+    $('body').css('background-image', `url('img/backgrounds/${status}.jpg')`)
   }
 
   // Change the icon depending on the weather status
