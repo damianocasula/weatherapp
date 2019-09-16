@@ -98,7 +98,7 @@ h3 {
   padding: var(--large-spacing);
   -webkit-backdrop-filter: blur(var(--tiny-spacing));
   backdrop-filter: blur(var(--tiny-spacing));
-  background-color: rgba(255, 255, 255, .08);
+  background-color: rgba(255, 255, 255, .1);
   box-shadow: 0 0 var(--medium-spacing) var(--tiny-spacing) rgba(25, 25, 25, .15);
 }
 
