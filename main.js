@@ -105,11 +105,15 @@ $(document).ready(() => {
         days.push(data.list[i])
       }
 
-      $('.day').each((i, element) => {
+      $('.tile').each((i, element) => {
         const date = new Date(days[i].dt_txt)
         const dayName = date.toString().split(' ')[0]
 
-        $(element).children('.tile-day').first().html(`${dayName}`)
+        console.log(dayName)
+        console.log(Math.round(days[i].main.temp))
+        console.log('')
+
+        $(element).children('h4').first().html(`${dayName}`)
         $(element).children('.tile-temperature').children('.data').html(Math.round(days[i].main.temp))
       })
 
