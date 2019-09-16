@@ -52,12 +52,12 @@ $(document).ready(() => {
 
   // Get the weather info of a user specified city
   $('#city-name-submit').click(e => {
-    updateUsingCity($('#location-input').val())
+    updateUsingCity($('#location-input').val(), console.log)
   })
 
   $(document).keypress(e => {
     if (e.which === 13) {
-      updateUsingCity($('#location-input').val())
+      updateUsingCity($('#location-input').val(), console.log)
     }
   })
 
