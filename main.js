@@ -6,6 +6,12 @@ $(document).ready(() => {
   // OpenWeatherMap API Key
   const OW_API_KEY = '6e35f76f652b11160be0f3c988e10b83'
 
+  // Dark Sky API Key
+  const DS_API_KEY = '673727fb946c485811c9151f95ec70f8'
+
+  // CORS Proxy for Dark Sky API
+  const CORS_PROXY = 'https://bypasscors.herokuapp.com/api/?url='
+
   // Google Maps API Key
   const GM_API_KEY = 'AIzaSyD3lc_Lx0scYDDhlQwPXSUfpSqrOYdRTHg'
 
@@ -81,44 +87,43 @@ $(document).ready(() => {
 
   // Get weather info from OpenWeatherMap API and update the app status
   let updateWeather = () => {
-    // Current weather
-    $.getJSON(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${OW_API_KEY}`, data => {
-      // Update weather info
-      $('#location').html(data.name + ', ' + data.sys.country)
-      $('#description').html(data.weather[0].description[0].toUpperCase() + data.weather[0].description.slice(1))
-      $('#temperature').html(Math.round(data.main.temp))
-      $('#mintemp').html(Math.round(data.main.temp_min))
-      $('#maxtemp').html(Math.round(data.main.temp_max))
-      $('#humidity').html(data.main.humidity)
-      $('#pressure').html(data.main.pressure)
+    // // Current weather
+    // $.getJSON(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${OW_API_KEY}`, data => {
+    //   // Update weather info
+    //   $('#location').html(data.name + ', ' + data.sys.country)
+    //   $('#description').html(data.weather[0].description[0].toUpperCase() + data.weather[0].description.slice(1))
+    //   $('#temperature').html(Math.round(data.main.temp))
+    //   $('#mintemp').html(Math.round(data.main.temp_min))
+    //   $('#maxtemp').html(Math.round(data.main.temp_max))
+    //   $('#humidity').html(data.main.humidity)
+    //   $('#pressure').html(data.main.pressure)
 
-      // Update background and icon depending on weather status
-      updateBackground(data.weather[0].description)
-      updateIcon(data.weather[0].icon)
-    })
+    //   // Update background and icon depending on weather status
+    //   updateBackground(data.weather[0].description)
+    //   updateIcon(data.weather[0].icon)
+    // })
 
     // 7 days forecast
-    $.getJSON(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${OW_API_KEY}`, data => {
-      let days = new Array(0)
-
-      for (let i = 0; i < data.list.length; i += 8) {
-        days.push(data.list[i])
-      }
+    $.getJSON(`${CORS_PROXY}https://api.darksky.net/forecast/${DS_API_KEY}/${lat},${lon}`, data => {
+      const days = data.daily.data
 
       $('.tile').each((i, element) => {
-        const date = new Date(days[i].dt_txt)
+        // Retrieve name of the day of the week
+        const utcSeconds = days[i].time;
+        const date = new Date(0)
+        date.setUTCSeconds(utcSeconds)
         const dayName = date.toString().split(' ')[0]
 
-        console.log(dayName)
-        console.log(Math.round(days[i].main.temp))
-        console.log('')
+        // Calculate average temperature in celsius
+        const avgTemperatureF = (days[i].temperatureMin + days[i].temperatureMax) / 2
+        const avgTemperatureC = (avgTemperatureF - 32) * 5 / 9
 
         $(element).children('h4').first().html(`${dayName}`)
-        $(element).children('.tile-temperature').children('.data').html(Math.round(days[i].main.temp))
+        $(element).children('.tile-temperature').children('.data').html(Math.round(avgTemperatureC))
       })
 
-      // Update background and icon depending on weather status
-      updateIcons(days)
+      // // Update icons depending on weather status
+      // updateIcons(days)
     })
   }
 
