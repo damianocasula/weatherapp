@@ -1,10 +1,9 @@
+/* global Toastify, $ */
+
 $(document).ready(() => {
   /*
-    Constants and variables
+    Constants and letiables
   */
-
-  // OpenWeatherMap API Key
-  const OW_API_KEY = '6e35f76f652b11160be0f3c988e10b83'
 
   // Dark Sky API Key
   const DS_API_KEY = '673727fb946c485811c9151f95ec70f8'
@@ -73,6 +72,7 @@ $(document).ready(() => {
       navigator.geolocation.getCurrentPosition(position => {
         lat = position.coords.latitude
         lon = position.coords.longitude
+        updateCity()
         updateWeather()
       })
     }
@@ -85,31 +85,85 @@ $(document).ready(() => {
     Functions
   */
 
+  // Update the city name using Google Maps API
+  let updateCity = () => {
+    $.getJSON(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&sensor=true&key=${GM_API_KEY}`, data => {
+      console.log(data.results)
+      const results = data.results
+
+      if (results[1]) {
+        let country = null
+        let city = null
+        let cityAlt = null
+        let c, lc, component
+
+        for (let r = 0, rl = results.length; r < rl; r += 1) {
+          let result = results[r]
+
+          if (!city && result.types[0] === 'locality') {
+            for (c = 0, lc = result.address_components.length; c < lc; c += 1) {
+              component = result.address_components[c]
+
+              if (component.types[0] === 'locality') {
+                city = component.long_name
+                break
+              }
+            }
+          } else if (!city && !cityAlt && result.types[0] === 'administrative_area_level_1') {
+            for (c = 0, lc = result.address_components.length; c < lc; c += 1) {
+              component = result.address_components[c]
+
+              if (component.types[0] === 'administrative_area_level_1') {
+                cityAlt = component.long_name
+                break
+              }
+            }
+          } else if (!country && result.types[0] === 'country') {
+            country = result.address_components[0].long_name
+          }
+
+          if (city && country) {
+            break
+          }
+        }
+
+        $('#location').html(`${city}, ${country}`)
+      }
+    })
+  }
+
   // Get weather info from OpenWeatherMap API and update the app status
   let updateWeather = () => {
-    // // Current weather
-    // $.getJSON(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${OW_API_KEY}`, data => {
-    //   // Update weather info
-    //   $('#location').html(data.name + ', ' + data.sys.country)
-    //   $('#description').html(data.weather[0].description[0].toUpperCase() + data.weather[0].description.slice(1))
-    //   $('#temperature').html(Math.round(data.main.temp))
-    //   $('#mintemp').html(Math.round(data.main.temp_min))
-    //   $('#maxtemp').html(Math.round(data.main.temp_max))
-    //   $('#humidity').html(data.main.humidity)
-    //   $('#pressure').html(data.main.pressure)
-
-    //   // Update background and icon depending on weather status
-    //   updateBackground(data.weather[0].description)
-    //   updateIcon(data.weather[0].icon)
-    // })
-
-    // 7 days forecast
+    // 7 days forecast & current weather
     $.getJSON(`${CORS_PROXY}https://api.darksky.net/forecast/${DS_API_KEY}/${lat},${lon}`, data => {
+      console.log(data)
+
+      const current = data.currently
+
+      // Format current day
+      const utcSeconds = current.time
+      const date = new Date(0)
+      date.setUTCSeconds(utcSeconds)
+      // const day = date.toString().split(' ')[0]
+
+      // Update current weather info
+      $('#description').html(current.summary)
+      $('#temperature').html(Math.round((current.temperature - 32) * 5 / 9))
+      // $('#mintemp').html(Math.round(data.main.temp_min))
+      // $('#maxtemp').html(Math.round(data.main.temp_max))
+      // $('#humidity').html(data.main.humidity)
+      // $('#pressure').html(data.main.pressure)
+
+      // // Update background and icon depending on weather status
+      // updateBackground(data.weather[0].description)
+      // updateIcon(data.weather[0].icon)
+
+      // 7 days forecast
       const days = data.daily.data
 
       $('.tile').each((i, element) => {
         // Retrieve name of the day of the week
-        const utcSeconds = days[i].time;
+        const utcSeconds = days[i].time
         const date = new Date(0)
         date.setUTCSeconds(utcSeconds)
         const dayName = date.toString().split(' ')[0]
@@ -134,6 +188,7 @@ $(document).ready(() => {
         // Obtain the latitude and the longitude of a certain city using Google Maps API
         lat = data.results[0].geometry.location.lat
         lon = data.results[0].geometry.location.lng
+        updateCity()
         updateWeather()
       } else { // Error in the API request
         // Red border
@@ -185,6 +240,7 @@ $(document).ready(() => {
       navigator.geolocation.getCurrentPosition(position => {
         lat = position.coords.latitude
         lon = position.coords.longitude
+        updateCity()
         updateWeather()
       })
     }
