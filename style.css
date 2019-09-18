@@ -355,6 +355,10 @@ input.search-button:hover {
   padding: var(--medium-spacing) 0;
 }
 
+.tile-temperature {
+  font-size: 92.5%;
+}
+
 @media (max-width: 2500px) {
   .timeline {
     font-size: 1.5rem;
@@ -409,6 +413,10 @@ input.search-button:hover {
   .timeline .feather {
     width: 60px;
     height: 60px;
+  }
+
+  .temperature-unit {
+    display: none;
   }
 }
 
