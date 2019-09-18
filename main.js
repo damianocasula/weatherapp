@@ -88,7 +88,6 @@ $(document).ready(() => {
   // Update the city name using Google Maps API
   let updateCityName = () => {
     $.getJSON(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&sensor=true&key=${GM_API_KEY}`, data => {
-      console.log(data.results)
       const results = data.results
 
       if (results[1]) {
@@ -142,8 +141,6 @@ $(document).ready(() => {
 
   // Update current weather info
   let updateCurrentWeatherInfo = currentWeather => {
-    console.log(currentWeather)
-
     $('#description').html(currentWeather.summary)
     $('#temperature').html(Math.round(fahrenheitToCelsius(currentWeather.temperature)))
     $('#humidity').html(currentWeather.humidity * 100)
