@@ -2,7 +2,7 @@
 
 $(document).ready(() => {
   /*
-    Constants and letiables
+    Constants and variables
   */
 
   // Dark Sky API Key
@@ -72,8 +72,8 @@ $(document).ready(() => {
       navigator.geolocation.getCurrentPosition(position => {
         lat = position.coords.latitude
         lon = position.coords.longitude
-        updateCity()
-        updateWeather()
+        updateCityName()
+        updateWeatherInfo()
       })
     }
 
@@ -86,7 +86,7 @@ $(document).ready(() => {
   */
 
   // Update the city name using Google Maps API
-  let updateCity = () => {
+  let updateCityName = () => {
     $.getJSON(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&sensor=true&key=${GM_API_KEY}`, data => {
       console.log(data.results)
       const results = data.results
@@ -132,53 +132,48 @@ $(document).ready(() => {
     })
   }
 
-  // Get weather info from OpenWeatherMap API and update the app status
-  let updateWeather = () => {
-    // 7 days forecast & current weather
+  // Get weather info from Dark Sky API and update the app status
+  let updateWeatherInfo = () => {
     $.getJSON(`${CORS_PROXY}https://api.darksky.net/forecast/${DS_API_KEY}/${lat},${lon}`, data => {
-      console.log(data)
-
-      const current = data.currently
-
-      // Format current day
-      const utcSeconds = current.time
-      const date = new Date(0)
-      date.setUTCSeconds(utcSeconds)
-      // const day = date.toString().split(' ')[0]
-
-      // Update current weather info
-      $('#description').html(current.summary)
-      $('#temperature').html(Math.round((current.temperature - 32) * 5 / 9))
-      // $('#mintemp').html(Math.round(data.main.temp_min))
-      // $('#maxtemp').html(Math.round(data.main.temp_max))
-      // $('#humidity').html(data.main.humidity)
-      // $('#pressure').html(data.main.pressure)
-
-      // // Update background and icon depending on weather status
-      // updateBackground(data.weather[0].description)
-      // updateIcon(data.weather[0].icon)
-
-      // 7 days forecast
-      const days = data.daily.data
-
-      $('.tile').each((i, element) => {
-        // Retrieve name of the day of the week
-        const utcSeconds = days[i].time
-        const date = new Date(0)
-        date.setUTCSeconds(utcSeconds)
-        const dayName = date.toString().split(' ')[0]
-
-        // Calculate average temperature in celsius
-        const avgTemperatureF = (days[i].temperatureMin + days[i].temperatureMax) / 2
-        const avgTemperatureC = (avgTemperatureF - 32) * 5 / 9
-
-        $(element).children('h4').first().html(`${dayName}`)
-        $(element).children('.tile-temperature').children('.data').html(Math.round(avgTemperatureC))
-      })
-
-      // // Update icons depending on weather status
-      // updateIcons(days)
+      updateCurrentWeatherInfo(data.currently)
+      updateTimelineWeatherInfo(data.daily.data)
     })
+  }
+
+  // Update current weather info
+  let updateCurrentWeatherInfo = currentWeather => {
+    console.log(currentWeather)
+
+    $('#description').html(currentWeather.summary)
+    $('#temperature').html(Math.round(fahrenheitToCelsius(currentWeather.temperature)))
+    $('#humidity').html(currentWeather.humidity * 100)
+    $('#pressure').html(currentWeather.pressure)
+
+    // // Update background and icon depending on weather status
+    // updateBackground(data.weather[0].description)
+    // updateIcon(data.weather[0].icon)
+  }
+
+  // Update 7 days forecast
+  let updateTimelineWeatherInfo = weeklyWeather => {
+    $('.tile').each((i, element) => {
+      // Retrieve name of the day of the week
+      const utcSeconds = weeklyWeather[i].time
+      let date = new Date(0)
+      date.setUTCSeconds(utcSeconds)
+      const dayName = date.toString().split(' ')[0]
+
+      // Calculate rounded celsius min and max temperatures
+      const roundedMinTemperatureC = Math.round(fahrenheitToCelsius(weeklyWeather[i].temperatureMin))
+      const roundedMaxTemperatureC = Math.round(fahrenheitToCelsius(weeklyWeather[i].temperatureMax))
+
+      // Update tile
+      $(element).children('h4').first().html(`${dayName}`)
+      $(element).children('.tile-temperature').children('.data').html(`${roundedMinTemperatureC} - ${roundedMaxTemperatureC}`)
+    })
+
+    // // Update icons depending on weather status
+    // updateIcons(days)
   }
 
   // Update the weather using a city name (Google Maps API)
@@ -188,8 +183,8 @@ $(document).ready(() => {
         // Obtain the latitude and the longitude of a certain city using Google Maps API
         lat = data.results[0].geometry.location.lat
         lon = data.results[0].geometry.location.lng
-        updateCity()
-        updateWeather()
+        updateCityName()
+        updateWeatherInfo()
       } else { // Error in the API request
         // Red border
         $('#location-input').css('box-shadow', '0 0 3px rgba(220, 20, 20, 1)')
@@ -224,12 +219,15 @@ $(document).ready(() => {
     $('#status-icon > img').attr('src', `img/icons/${icon}.png`)
   }
 
-  // Change the 5-days forecast icons depending on the weather statuses
+  // Change the 7-days forecast icons depending on the weather statuses
   let updateIcons = days => {
     $('.day').each((i, element) => {
       $(element).children('.status-icon').children('img').attr('src', `img/icons/${days[i].weather[0].icon}.png`)
     })
   }
+
+  // Convert Fahrenheit to Celsius
+  let fahrenheitToCelsius = fahrenheit => (fahrenheit - 32) * 5 / 9
 
   /*
     Detect user location
@@ -240,9 +238,21 @@ $(document).ready(() => {
       navigator.geolocation.getCurrentPosition(position => {
         lat = position.coords.latitude
         lon = position.coords.longitude
-        updateCity()
-        updateWeather()
+        updateCityName()
+        updateWeatherInfo()
       })
     }
   })
+
+  /*
+     Current time and date
+  */
+  let today = new Date()
+  date.setUTCSeconds(utcSeconds)
+  const currentDay = date.toString()
+  const currentDayArray = currentDay.split(' ')
+  const currentTimeArray = currentDayArray[4].split(':')
+  $('#current-time').html(`${currentTimeArray[0]}:${currentTimeArray[1]}`)
+  $('#current-day').html(`${currentDayArray[1]} ${currentDayArray[2]} ${currentDayArray[3]}`)
+
 })
