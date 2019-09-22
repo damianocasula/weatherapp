@@ -174,8 +174,35 @@ $(document).ready(() => {
 
   // Change the 7-days forecast icons depending on the weather statuses
   let updateTimelineIcons = days => {
-    $('.day').each((i, element) => {
-      $(element).children('.status-icon').children('img').attr('src', `img/icons/${days[i].weather[0].icon}.png`)
+    $('.tile').each((i, element) => {
+      switch (days[i].icon) {
+        case 'clear-day':
+          $(element).children('.tile-icon').html('<i data-feather="sun"></i>')
+          break;
+        case 'clear-night':
+          $(element).children('.tile-icon').html('<i data-feather="moon"></i>')
+          break;
+        case 'rain':
+          $(element).children('.tile-icon').html('<i data-feather="cloud-rain"></i>')
+          break;
+        case 'snow':
+          $(element).children('.tile-icon').html('<i data-feather="cloud-snow"></i>')
+          break;
+        case 'sleet':
+          $(element).children('.tile-icon').html('<i data-feather="cloud-drizzle"></i>')
+          break;
+        case 'wind':
+          $(element).children('.tile-icon').html('<i data-feather="wind"></i>')
+          break;
+        case 'fog':
+        case 'cloudy':
+        case 'partly-cloudy-day':
+        case 'partly-cloudy-night':
+          $(element).children('.tile-icon').html('<i data-feather="cloud"></i>')
+          break;
+      }
+  
+      forceFeatherReplace()
     })
   }
 
@@ -198,7 +225,7 @@ $(document).ready(() => {
     })
 
     // Update icons depending on weather status
-    updateTimelineIcons(days)
+    updateTimelineIcons(weeklyWeather)
   }
 
   // Get weather info from Dark Sky API and update the app status
