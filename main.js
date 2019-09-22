@@ -44,6 +44,16 @@ $(document).ready(() => {
     Functions
   */
 
+  // Force feather icons replace
+  forceFeatherReplace = () => {
+    feather.replace({
+      class: 'feather feather-x',
+      width: 96,
+      height: 96,
+      'stroke-width': 1
+    })
+  }
+
   // Update the city info using Google Maps API
   let updateCityInfo = () => {
     $.getJSON(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&sensor=true&key=${GM_API_KEY}`, data => {
@@ -118,8 +128,35 @@ $(document).ready(() => {
   }
 
   // Change the icon depending on the weather status
-  let updateIcon = icon => {
-    $('#status-icon > img').attr('src', `img/icons/${icon}.png`)
+  let updateStatusIcon = icon => {
+    switch (icon) {
+      case 'clear-day':
+        $('#info-icon').html('<i data-feather="sun"></i>')
+        break;
+      case 'clear-night':
+        $('#info-icon').html('<i data-feather="moon"></i>')
+        break;
+      case 'rain':
+        $('#info-icon').html('<i data-feather="cloud-rain"></i>')
+        break;
+      case 'snow':
+        $('#info-icon').html('<i data-feather="cloud-snow"></i>')
+        break;
+      case 'sleet':
+        $('#info-icon').html('<i data-feather="cloud-drizzle"></i>')
+        break;
+      case 'wind':
+        $('#info-icon').html('<i data-feather="wind"></i>')
+        break;
+      case 'fog':
+      case 'cloudy':
+      case 'partly-cloudy-day':
+      case 'partly-cloudy-night':
+        $('#info-icon').html('<i data-feather="cloud"></i>')
+        break;
+    }
+
+    forceFeatherReplace()
   }
 
   // Update current weather info
@@ -132,11 +169,11 @@ $(document).ready(() => {
 
     // Update background and icon depending on weather status
     updateBackground(currentWeather.icon)
-    updateIcon(currentWeather.icon)
+    updateStatusIcon(currentWeather.icon)
   }
 
   // Change the 7-days forecast icons depending on the weather statuses
-  let updateIcons = days => {
+  let updateTimelineIcons = days => {
     $('.day').each((i, element) => {
       $(element).children('.status-icon').children('img').attr('src', `img/icons/${days[i].weather[0].icon}.png`)
     })
@@ -160,8 +197,8 @@ $(document).ready(() => {
       $(element).children('.tile-temperature').children('.data').html(`${roundedMinTemperatureC} - ${roundedMaxTemperatureC}`)
     })
 
-    // // Update icons depending on weather status
-    // updateIcons(days)
+    // Update icons depending on weather status
+    updateTimelineIcons(days)
   }
 
   // Get weather info from Dark Sky API and update the app status
@@ -270,4 +307,10 @@ $(document).ready(() => {
   */
 
   $('#current-year').html(new Date().getFullYear())
+
+  /*
+    Force feather icons
+  */
+
+  forceFeatherReplace()
 })
