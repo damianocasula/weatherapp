@@ -1,0 +1,29 @@
+{
+  "name": "super-guida-javascript-2",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/damianocasula/weatherapp2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/damianocasula/weatherapp2/issues"
+  },
+  "homepage": "https://github.com/damianocasula/weatherapp2#readme",
+  "devDependencies": {
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9"
+  },
+  "dependencies": {
+    "jquery": "^3.4.1",
+    "toastify-js": "^1.6.1"
+  }
+}

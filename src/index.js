@@ -1,4 +1,5 @@
-/* global Toastify, $ */
+import Toastify from 'toastify-js'
+import $ from 'jquery'
 
 $(document).ready(() => {
   /*
