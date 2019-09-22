@@ -105,12 +105,10 @@ $(document).ready(() => {
     $('body').css('background-image', `url('img/backgrounds/${status}.jpg')`)
 
     switch (status) {
-      case 'sleet':
-      case 'smoke':
-      case 'mist':
-      case 'fog':
       case 'cloudy':
-      case 'squalls':
+      case 'haze':
+      case 'mist':
+      case 'wind':
         $('#app').css('background-color', 'rgba(60, 60, 60, .2)')
         break
       default:
