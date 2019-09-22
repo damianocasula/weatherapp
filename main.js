@@ -41,52 +41,11 @@ $(document).ready(() => {
   }, 2000)
 
   /*
-    Get current year
-  */
-
-  $('#current-year').html(new Date().getFullYear())
-
-  /*
-    Event handlers
-  */
-
-  // Remove the red box shadow when the location input is updated
-  $('#location-input').on('input', () => {
-    $('#location-input').css('box-shadow', 'none')
-  })
-
-  // Get the weather info of a user specified city
-  $('#city-name-submit').click(e => {
-    updateUsingCity($('#location-input').val(), console.log)
-  })
-
-  $(document).keypress(e => {
-    if (e.which === 13) {
-      updateUsingCity($('#location-input').val(), console.log)
-    }
-  })
-
-  // TODO: Get browser location when user clicks on #browser-location-submit button
-  $('#browser-location-submit').click(e => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        lat = position.coords.latitude
-        lon = position.coords.longitude
-        updateCityName()
-        updateWeatherInfo()
-      })
-    }
-
-    // Remove the red box shadow
-    $('#location-input').css('box-shadow', 'none')
-  })
-
-  /*
     Functions
   */
 
-  // Update the city name using Google Maps API
-  let updateCityName = () => {
+  // Update the city info using Google Maps API
+  let updateCityInfo = () => {
     $.getJSON(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&sensor=true&key=${GM_API_KEY}`, data => {
       const results = data.results
 
@@ -96,6 +55,7 @@ $(document).ready(() => {
         let cityAlt = null
         let c, lc, component
 
+        // Retrieve city and country names
         for (let r = 0, rl = results.length; r < rl; r += 1) {
           let result = results[r]
 
@@ -126,29 +86,57 @@ $(document).ready(() => {
           }
         }
 
-        $('#location').html(`${city}, ${country}`)
+        // Update location div
+        if (city && country) {
+          $('#location').html(`${city}, ${country}`)
+        } else if (city) {
+          $('#location').html(`${city}`)
+        } else if (country) {
+          $('#location').html(`${country}`)
+        } else {
+          $('#location').html('Unknown location')
+        }
       }
     })
   }
 
-  // Get weather info from Dark Sky API and update the app status
-  let updateWeatherInfo = () => {
-    $.getJSON(`${CORS_PROXY}https://api.darksky.net/forecast/${DS_API_KEY}/${lat},${lon}`, data => {
-      updateCurrentWeatherInfo(data.currently)
-      updateTimelineWeatherInfo(data.daily.data)
-    })
+  // Change the background depending on the weather status
+  let updateBackground = status => {
+    $('body').css('background-image', `url('img/backgrounds/${status}.jpg')`)
+
+    switch (status) {
+      case 'cloudy':
+        $('#app').css('background-color', 'rgba(60, 60, 60, .2)')
+        break
+      default:
+        $('#app').css('background-color', 'rgba(250, 250, 250, .1)')
+        break
+    }
+  }
+
+  // Change the icon depending on the weather status
+  let updateIcon = icon => {
+    $('#status-icon > img').attr('src', `img/icons/${icon}.png`)
   }
 
   // Update current weather info
   let updateCurrentWeatherInfo = currentWeather => {
+    // Update the page elements for current weather info
     $('#description').html(currentWeather.summary)
     $('#temperature').html(Math.round(fahrenheitToCelsius(currentWeather.temperature)))
-    $('#humidity').html(currentWeather.humidity * 100)
+    $('#humidity').html(Math.round(currentWeather.humidity * 100))
     $('#pressure').html(currentWeather.pressure)
 
-    // // Update background and icon depending on weather status
-    // updateBackground(data.weather[0].description)
-    // updateIcon(data.weather[0].icon)
+    // Update background and icon depending on weather status
+    updateBackground(currentWeather.icon)
+    updateIcon(currentWeather.icon)
+  }
+
+  // Change the 7-days forecast icons depending on the weather statuses
+  let updateIcons = days => {
+    $('.day').each((i, element) => {
+      $(element).children('.status-icon').children('img').attr('src', `img/icons/${days[i].weather[0].icon}.png`)
+    })
   }
 
   // Update 7 days forecast
@@ -173,6 +161,15 @@ $(document).ready(() => {
     // updateIcons(days)
   }
 
+  // Get weather info from Dark Sky API and update the app status
+  let updateWeatherInfo = () => {
+    $.getJSON(`${CORS_PROXY}https://api.darksky.net/forecast/${DS_API_KEY}/${lat},${lon}`, data => {
+      // Update current weather info and info in the timeline
+      updateCurrentWeatherInfo(data.currently)
+      updateTimelineWeatherInfo(data.daily.data)
+    })
+  }
+
   // Update the weather using a city name (Google Maps API)
   let updateUsingCity = (city, callback) => {
     $.getJSON(`https://maps.googleapis.com/maps/api/geocode/json?address=${city}&bounds=46,0|34,20&key=${GM_API_KEY}`, data => {
@@ -180,11 +177,13 @@ $(document).ready(() => {
         // Obtain the latitude and the longitude of a certain city using Google Maps API
         lat = data.results[0].geometry.location.lat
         lon = data.results[0].geometry.location.lng
-        updateCityName()
+
+        // Update the location and the weather info
+        updateCityInfo()
         updateWeatherInfo()
       } else { // Error in the API request
         // Red border
-        $('#location-input').css('box-shadow', '0 0 3px rgba(220, 20, 20, 1)')
+        $('#location-input').css('border-bottom', '1px solid rgba(220, 20, 20, .75)')
 
         // Error toast
         Toastify({
@@ -196,31 +195,6 @@ $(document).ready(() => {
         }).showToast()
       }
     }).done(() => callback())
-  }
-
-  // Change the background depending on the weather status
-  let updateBackground = status => {
-    if (status.includes('thunderstorm')) status = 'thunderstorm'
-    if (status.includes('drizzle') || status.includes('rain')) status = 'rain'
-    if (status.includes('snow')) status = 'snow'
-    if (status.includes('clouds') && !status.includes('few clouds')) status = 'clouds'
-    if (status.includes('sand') || status.includes('dust')) status = 'sand'
-
-    status = status.replace(' ', '-')
-
-    $('body').css('background-image', `url('img/backgrounds/${status}.jpg')`)
-  }
-
-  // Change the icon depending on the weather status
-  let updateIcon = icon => {
-    $('#status-icon > img').attr('src', `img/icons/${icon}.png`)
-  }
-
-  // Change the 7-days forecast icons depending on the weather statuses
-  let updateIcons = days => {
-    $('.day').each((i, element) => {
-      $(element).children('.status-icon').children('img').attr('src', `img/icons/${days[i].weather[0].icon}.png`)
-    })
   }
 
   // Convert Fahrenheit to Celsius
@@ -235,7 +209,7 @@ $(document).ready(() => {
       navigator.geolocation.getCurrentPosition(position => {
         lat = position.coords.latitude
         lon = position.coords.longitude
-        updateCityName()
+        updateCityInfo()
         updateWeatherInfo()
       })
     }
@@ -244,12 +218,53 @@ $(document).ready(() => {
   /*
      Current time and date
   */
+
   let today = new Date()
-  date.setUTCSeconds(utcSeconds)
-  const currentDay = date.toString()
+  const currentDay = today.toString()
   const currentDayArray = currentDay.split(' ')
   const currentTimeArray = currentDayArray[4].split(':')
   $('#current-time').html(`${currentTimeArray[0]}:${currentTimeArray[1]}`)
   $('#current-day').html(`${currentDayArray[1]} ${currentDayArray[2]} ${currentDayArray[3]}`)
 
+  /*
+    Event handlers
+  */
+
+  // Remove the red box shadow when the location input is updated
+  $('#location-input').on('input', () => {
+    $('#location-input').css('border-bottom', '1px solid #eee')
+  })
+
+  // Get the weather info of a user specified city
+  $('#city-name-submit').click(e => {
+    updateUsingCity($('#location-input').val(), console.log)
+  })
+
+  $(document).keypress(e => {
+    if (e.which === 13) {
+      updateUsingCity($('#location-input').val(), console.log)
+    }
+  })
+
+  // Get browser location when user clicks on #browser-location-submit button
+  // TODO: #browser-location-submit button
+  $('#browser-location-submit').click(e => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        lat = position.coords.latitude
+        lon = position.coords.longitude
+        updateCityInfo()
+        updateWeatherInfo()
+      })
+    }
+
+    // Remove the red box shadow
+    $('#location-input').css('box-shadow', 'none')
+  })
+
+  /*
+    Get current year
+  */
+
+  $('#current-year').html(new Date().getFullYear())
 })

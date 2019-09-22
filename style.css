@@ -9,7 +9,10 @@
   --little-spacing: 6px;
   --medium-spacing: 12px;
   --large-spacing: 24px;
-  --big-spacing: 30px
+  --big-spacing: 30px;
+
+  --main-color: #fefefe;
+  --faded-main-color: #eee;
 }
 
 /*
@@ -24,8 +27,8 @@
 
 body {
   font-family: Poppins, 'San Francisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  color: #fefefe;
-  background-image: url('img/backgrounds/clear-sky.jpg');
+  color: var(--main-color);
+  background-image: url('img/backgrounds/clear-day.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -34,8 +37,8 @@ body {
 .temperature-unit, .pressure-unit {
   font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: 300;
-  opacity: .85;
-  font-size: 85%;
+  opacity: .87.5;
+  font-size: 87.5%;
 }
 
 h2 {
@@ -111,7 +114,7 @@ div.toastify.on.toastify-right.toastify-top {
   width: 65%;
   flex-direction: column;
   justify-content: space-between;
-  border: var(--little-spacing) solid #fefefe;
+  border: var(--little-spacing) solid var(--main-color);
   border-radius: calc(var(--medium-spacing) * 1.25);
   padding: var(--large-spacing);
   -webkit-backdrop-filter: blur(var(--tiny-spacing));
@@ -224,7 +227,7 @@ div.toastify.on.toastify-right.toastify-top {
   border: none;
   border-radius: 0;
   background: none;
-  color: #fefefe;
+  color: var(--main-color);
   outline: none;
   padding: var(--little-spacing);
   font-size: 1em;
@@ -415,7 +418,7 @@ input.search-button:hover {
     height: 60px;
   }
 
-  .temperature-unit {
+  .timeline-temperature-unit {
     display: none;
   }
 }
@@ -476,15 +479,15 @@ input.search-button:hover {
   border-top-left-radius: var(--medium-spacing);
   border-top-right-radius: var(--medium-spacing);
   padding: var(--medium-spacing);
-  color: #eee;
+  color: var(--faded-main-color);
   box-shadow: 0 0 2px 2px rgba(0, 0, 0, .025);
   text-shadow: 0 0 var(--tiny-spacing) rgba(0, 0, 0, .25);
 }
 
 .footer a {
-  color: #fff;
+  color: var(--main-color);
   text-decoration: none;
-  border-bottom: 1px dotted #eee;
+  border-bottom: 1px dotted var(--faded-main-color);
 }
 
 .footer a.tea-cup {
