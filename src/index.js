@@ -7,13 +7,13 @@ $(document).ready(() => {
   */
 
   // Dark Sky API Key
-  const DS_API_KEY = '673727fb946c485811c9151f95ec70f8'
+  const DS_API_KEY = process.env.DS_API_KEY
+
+  // Google Maps API Key
+  const GM_API_KEY = process.env.GM_API_KEY
 
   // CORS Proxy for Dark Sky API
   const CORS_PROXY = 'https://bypasscors.herokuapp.com/api/?url='
-
-  // Google Maps API Key
-  const GM_API_KEY = 'AIzaSyD3lc_Lx0scYDDhlQwPXSUfpSqrOYdRTHg'
 
   // Latitude and longitude
   let lat = 0
