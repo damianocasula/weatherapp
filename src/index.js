@@ -45,15 +45,15 @@ $(document).ready(() => {
     Functions
   */
 
-  // // Force feather icons replace
-  // forceFeatherReplace = () => {
-  //   feather.replace({
-  //     class: 'feather feather-x',
-  //     width: 96,
-  //     height: 96,
-  //     'stroke-width': 1
-  //   })
-  // }
+  // Force feather icons replace
+  let forceFeatherReplace = () => {
+    feather.replace({
+      class: 'feather feather-x',
+      width: 96,
+      height: 96,
+      'stroke-width': 1
+    })
+  }
 
   // Update the city info using Google Maps API
   let updateCityInfo = () => {
@@ -157,7 +157,7 @@ $(document).ready(() => {
         break;
     }
 
-    // forceFeatherReplace()
+    forceFeatherReplace()
   }
 
   // Update current weather info
@@ -167,6 +167,7 @@ $(document).ready(() => {
     $('#temperature').html(Math.round(fahrenheitToCelsius(currentWeather.temperature)))
     $('#humidity').html(Math.round(currentWeather.humidity * 100))
     $('#pressure').html(currentWeather.pressure)
+    $('#precipitation').html(currentWeather.precipProbability * 100)
 
     // Update background and icon depending on weather status
     updateBackground(currentWeather.icon)
@@ -203,7 +204,7 @@ $(document).ready(() => {
           break;
       }
   
-      // forceFeatherReplace()
+      forceFeatherReplace()
     })
   }
 
@@ -347,5 +348,5 @@ $(document).ready(() => {
     Force feather icons
   */
 
-  // forceFeatherReplace()
+  forceFeatherReplace()
 })
