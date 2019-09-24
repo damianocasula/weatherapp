@@ -45,15 +45,15 @@ $(document).ready(() => {
     Functions
   */
 
-  // Force feather icons replace
-  forceFeatherReplace = () => {
-    feather.replace({
-      class: 'feather feather-x',
-      width: 96,
-      height: 96,
-      'stroke-width': 1
-    })
-  }
+  // // Force feather icons replace
+  // forceFeatherReplace = () => {
+  //   feather.replace({
+  //     class: 'feather feather-x',
+  //     width: 96,
+  //     height: 96,
+  //     'stroke-width': 1
+  //   })
+  // }
 
   // Update the city info using Google Maps API
   let updateCityInfo = () => {
@@ -157,7 +157,7 @@ $(document).ready(() => {
         break;
     }
 
-    forceFeatherReplace()
+    // forceFeatherReplace()
   }
 
   // Update current weather info
@@ -203,7 +203,7 @@ $(document).ready(() => {
           break;
       }
   
-      forceFeatherReplace()
+      // forceFeatherReplace()
     })
   }
 
@@ -330,6 +330,13 @@ $(document).ready(() => {
     $('#location-input').css('box-shadow', 'none')
   })
 
+  // Show and hide detailed timeline informations panel on hover
+  $('.tile').hover(e => {
+    $('#details-panel').addClass('show')
+  }, e => {
+    $('#details-panel').removeClass('show')
+  })
+
   /*
     Get current year
   */
@@ -340,5 +347,5 @@ $(document).ready(() => {
     Force feather icons
   */
 
-  forceFeatherReplace()
+  // forceFeatherReplace()
 })
