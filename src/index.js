@@ -168,7 +168,7 @@ $(document).ready(() => {
     $('#temperature').html(Math.round(fahrenheitToCelsius(currentWeather.temperature)))
     $('#humidity').html(Math.round(currentWeather.humidity * 100))
     $('#pressure').html(currentWeather.pressure)
-    $('#precipitation').html(currentWeather.precipProbability * 100)
+    $('#precipitation').html(Math.round(currentWeather.precipProbability * 100))
 
     // Update background and icon depending on weather status
     updateBackground(currentWeather.icon)
@@ -271,6 +271,19 @@ $(document).ready(() => {
   // Convert Fahrenheit to Celsius
   let fahrenheitToCelsius = fahrenheit => (fahrenheit - 32) * 5 / 9
 
+  // Get date formatted to Mmm DD YYYY
+  let formatDate = date => {
+    const currentDayArray = date.toString().split(' ')
+    return `${currentDayArray[1]} ${currentDayArray[2]} ${currentDayArray[3]}`
+  }
+
+  // Get time formatted to Mmm DD YYYY
+  let formatTime = date => {
+    const currentDayArray = date.toString().split(' ')
+    const currentTimeArray = currentDayArray[4].split(':')
+    return `${currentTimeArray[0]}:${currentTimeArray[1]}`
+  }
+
   /*
     Detect user location
   */
@@ -290,12 +303,8 @@ $(document).ready(() => {
      Current time and date
   */
 
-  let today = new Date()
-  const currentDay = today.toString()
-  const currentDayArray = currentDay.split(' ')
-  const currentTimeArray = currentDayArray[4].split(':')
-  $('#current-time').html(`${currentTimeArray[0]}:${currentTimeArray[1]}`)
-  $('#current-day').html(`${currentDayArray[1]} ${currentDayArray[2]} ${currentDayArray[3]}`)
+  $('#current-day').html(formatDate(new Date()))
+  $('#current-time').html(formatTime(new Date()))
 
   /*
     Event handlers
@@ -335,14 +344,33 @@ $(document).ready(() => {
 
   // Show and hide detailed timeline informations panel on hover
   $('.tile').hover(e => {
+    // Toggle panel
     $('#details-panel').addClass('show')
     $('#top-container').addClass('hide')
     
     const nthOfChild = $(e.delegateTarget).prop('id').split('-')[1]
     const weatherInfo = weeklyWeather[nthOfChild]
 
+    // Format date
+    const utcSeconds = weatherInfo.time
+    let date = new Date(0)
+    date.setUTCSeconds(utcSeconds)
+    $('#details-day').html(formatDate(date))
 
+    // Temperature
+    const roundedMinTemperatureC = Math.round(fahrenheitToCelsius(weatherInfo.temperatureMin))
+    const roundedMaxTemperatureC = Math.round(fahrenheitToCelsius(weatherInfo.temperatureMax))
+
+    // Update tile
+    $('#details-temperature').html(`${roundedMinTemperatureC} - ${roundedMaxTemperatureC}`)
+
+    // Other infos
+    $('#details-description').html(weatherInfo.summary)
+    $('#details-humidity').html(Math.round(weatherInfo.humidity * 100))
+    $('#details-pressure').html(weatherInfo.pressure)
+    $('#details-precipitation').html(Math.round(weatherInfo.precipProbability * 100))
   }, e => {
+    // Toggle panel
     $('#details-panel').removeClass('show')
     $('#top-container').removeClass('hide')
   })
