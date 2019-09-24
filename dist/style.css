@@ -176,6 +176,11 @@ div.toastify.on.toastify-right.toastify-top {
   width: 100%;
   justify-content: space-between;
   position: relative;
+  visibility: visible;
+}
+
+.top-container.hide {
+  visibility: hidden;
 }
 
 .top-container .box {
@@ -210,7 +215,7 @@ div.toastify.on.toastify-right.toastify-top {
   justify-content: space-between;
 }
 
-.weather-info {
+.weather-info, .details-info {
   margin-top: var(--large-spacing);
   font-size: 1.1rem;
 }
@@ -478,15 +483,26 @@ input.search-button:hover {
   left: 0;
   height: 100%;
   width: 100%;
-  background: var(--main-color);
+  /* background: var(--main-color); */
   z-index: 999;
   border-radius: calc(var(--tiny-spacing) * 1.75);
   padding: 12px;
   visibility: hidden;
+  display: flex;
+  /* color: #101010; */
 }
 
 .details-panel.show {
   visibility: visible;
+}
+
+.details-text {
+  flex: 1;
+}
+
+.details-info .data {
+  opacity: .95;
+  font-weight: 300;
 }
 
 /*

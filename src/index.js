@@ -18,6 +18,7 @@ $(document).ready(() => {
   // Latitude and longitude
   let lat = 0
   let lon = 0
+  let weeklyWeather = {}
 
   /*
     Inform the user that he sometimes need to specify the nation
@@ -236,6 +237,7 @@ $(document).ready(() => {
       // Update current weather info and info in the timeline
       updateCurrentWeatherInfo(data.currently)
       updateTimelineWeatherInfo(data.daily.data)
+      weeklyWeather = data.daily.data
     })
   }
 
@@ -334,8 +336,15 @@ $(document).ready(() => {
   // Show and hide detailed timeline informations panel on hover
   $('.tile').hover(e => {
     $('#details-panel').addClass('show')
+    $('#top-container').addClass('hide')
+    
+    const nthOfChild = $(e.delegateTarget).prop('id').split('-')[1]
+    const weatherInfo = weeklyWeather[nthOfChild]
+
+
   }, e => {
     $('#details-panel').removeClass('show')
+    $('#top-container').removeClass('hide')
   })
 
   /*
