@@ -175,6 +175,7 @@ div.toastify.on.toastify-right.toastify-top {
   display: flex;
   width: 100%;
   justify-content: space-between;
+  position: relative;
 }
 
 .top-container .box {
@@ -465,6 +466,27 @@ input.search-button:hover {
   .timeline {
     font-size: 0.9rem;
   }
+}
+
+/*
+  Timeline details panel
+*/
+
+.details-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: var(--main-color);
+  z-index: 999;
+  border-radius: calc(var(--tiny-spacing) * 1.75);
+  padding: 12px;
+  visibility: hidden;
+}
+
+.details-panel.show {
+  visibility: visible;
 }
 
 /*
