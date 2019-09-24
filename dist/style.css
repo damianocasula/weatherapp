@@ -483,13 +483,13 @@ input.search-button:hover {
   left: 0;
   height: 100%;
   width: 100%;
-  /* background: var(--main-color); */
+  background: rgba(255, 255, 255, .1);
   z-index: 999;
   border-radius: calc(var(--tiny-spacing) * 1.75);
   padding: 12px;
   visibility: hidden;
   display: flex;
-  /* color: #101010; */
+
 }
 
 .details-panel.show {
@@ -498,6 +498,11 @@ input.search-button:hover {
 
 .details-text {
   flex: 1;
+}
+
+.details-day {
+  font-size: 150%;
+  font-weight: 400;
 }
 
 .details-info .data {
