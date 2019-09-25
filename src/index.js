@@ -154,7 +154,7 @@ $(document).ready(() => {
 
   // Change the icon depending on the weather status
   let updateStatusIcon = icon => {
-    $(element).children('.info-icon').html(`<i data-feather="${convertIconName(icon)}"></i>`)
+    $('.info-icon').html(`<i data-feather="${convertIconName(icon)}"></i>`)
     forceFeatherReplace()
   }
 
