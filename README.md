@@ -5,4 +5,4 @@
 - Using webpack
 - Using environment variables
 - Detailed weather information for timeline items
--  Better UI
+- Better UI
