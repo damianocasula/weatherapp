@@ -13,7 +13,7 @@ $(document).ready(() => {
   const GM_API_KEY = process.env.GM_API_KEY
 
   // CORS Proxy for Dark Sky API
-  const CORS_PROXY = 'https://bypasscors.herokuapp.com/api/?url='
+  const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/'
 
   // Latitude and longitude
   let lat = 0
@@ -129,35 +129,32 @@ $(document).ready(() => {
     }
   }
 
-  // Change the icon depending on the weather status
-  let updateStatusIcon = icon => {
+  // Feather icon name depending on Dark Sky icon name
+  let convertIconName = icon => {
     switch (icon) {
       case 'clear-day':
-        $('#info-icon').html('<i data-feather="sun"></i>')
-        break;
+        return 'sun'
       case 'clear-night':
-        $('#info-icon').html('<i data-feather="moon"></i>')
-        break;
+        return 'moon'
       case 'rain':
-        $('#info-icon').html('<i data-feather="cloud-rain"></i>')
-        break;
+        return 'cloud-rain'
       case 'snow':
-        $('#info-icon').html('<i data-feather="cloud-snow"></i>')
-        break;
+        return 'cloud-snow'
       case 'sleet':
-        $('#info-icon').html('<i data-feather="cloud-drizzle"></i>')
-        break;
+        return 'cloud-drizzle'
       case 'wind':
-        $('#info-icon').html('<i data-feather="wind"></i>')
-        break;
+        return 'wind'
       case 'fog':
       case 'cloudy':
       case 'partly-cloudy-day':
       case 'partly-cloudy-night':
-        $('#info-icon').html('<i data-feather="cloud"></i>')
-        break;
+        return 'cloud'
     }
+  }
 
+  // Change the icon depending on the weather status
+  let updateStatusIcon = icon => {
+    $(element).children('.info-icon').html(`<i data-feather="${convertIconName(icon)}"></i>`)
     forceFeatherReplace()
   }
 
@@ -178,33 +175,7 @@ $(document).ready(() => {
   // Change the 7-days forecast icons depending on the weather statuses
   let updateTimelineIcons = days => {
     $('.tile').each((i, element) => {
-      switch (days[i].icon) {
-        case 'clear-day':
-          $(element).children('.tile-icon').html('<i data-feather="sun"></i>')
-          break;
-        case 'clear-night':
-          $(element).children('.tile-icon').html('<i data-feather="moon"></i>')
-          break;
-        case 'rain':
-          $(element).children('.tile-icon').html('<i data-feather="cloud-rain"></i>')
-          break;
-        case 'snow':
-          $(element).children('.tile-icon').html('<i data-feather="cloud-snow"></i>')
-          break;
-        case 'sleet':
-          $(element).children('.tile-icon').html('<i data-feather="cloud-drizzle"></i>')
-          break;
-        case 'wind':
-          $(element).children('.tile-icon').html('<i data-feather="wind"></i>')
-          break;
-        case 'fog':
-        case 'cloudy':
-        case 'partly-cloudy-day':
-        case 'partly-cloudy-night':
-          $(element).children('.tile-icon').html('<i data-feather="cloud"></i>')
-          break;
-      }
-  
+      $(element).children('.info-icon').html(`<i data-feather="${convertIconName(days[i].icon)}"></i>`)
       forceFeatherReplace()
     })
   }
