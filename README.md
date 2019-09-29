@@ -11,4 +11,6 @@
 
 ### How to build the code
 
-`npm run build`
+```
+npm run build
+```
