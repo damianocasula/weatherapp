@@ -183,6 +183,13 @@ div.toastify.on.toastify-right.toastify-top {
   visibility: hidden;
 }
 
+.top-container.animateshow {
+  -webkit-animation: show-animation 600ms 1;
+  -moz-animation: show-animation 600ms 1;
+  -o-animation: show-animation 600ms 1;
+  animation: show-animation 600ms 1;
+}
+
 .top-container .box {
   width: 40%;
 }
@@ -255,6 +262,10 @@ input.search-button {
 input.search-button:hover {
   background-color: rgba(255, 255, 255, .15);
   cursor: pointer;
+}
+
+input.search-button:active {
+  background-color: rgba(255, 255, 255, .17);
 }
 
 @media (max-width: 1000px) {
@@ -493,6 +504,10 @@ input.search-button:hover {
 
 .details-panel.show {
   visibility: visible;
+  -webkit-animation: show-animation 350ms 1;
+  -moz-animation: show-animation 350ms 1;
+  -o-animation: show-animation 350ms 1;
+  animation: show-animation 350ms 1;
 }
 
 .details-text {
@@ -541,4 +556,25 @@ input.search-button:hover {
   .footer {
     display: none;
   }
+}
+
+/*
+  Details panel animation
+*/
+
+@-webkit-keyframes show-animation {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-moz-keyframes show-animation {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-o-keyframes show-animation {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes show-animation {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
 }

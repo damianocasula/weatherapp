@@ -317,7 +317,7 @@ $(document).ready(() => {
   $('.tile').hover(e => {
     // Toggle panel
     $('#details-panel').addClass('show')
-    $('#top-container').addClass('hide')
+    $('#top-container').addClass('hide').removeClass('animateshow')
     
     const nthOfChild = $(e.delegateTarget).prop('id').split('-')[1]
     const weatherInfo = weeklyWeather[nthOfChild]
@@ -343,7 +343,7 @@ $(document).ready(() => {
   }, e => {
     // Toggle panel
     $('#details-panel').removeClass('show')
-    $('#top-container').removeClass('hide')
+    $('#top-container').removeClass('hide').addClass('animateshow')
   })
 
   /*
