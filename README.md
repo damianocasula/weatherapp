@@ -13,6 +13,11 @@ This app allows you to see the current and the weekly weather for your city or a
 
 ### How to use the app
 
+- Install dependencies:
+  ```
+  npm i
+  ```
+
 - Add environment variables for Dark Sky and Google Maps API keys:
   ```
   DS_API_KEY=<your-dark-sky-api-key>
