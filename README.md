@@ -9,8 +9,15 @@
 - Detailed weather information for timeline items
 - Better UI
 
-### How to build the code
+### How to use the app
 
-```
-npm run build
-```
+- Add environment variables for Dark Sky and Google Maps API keys:
+  ```
+  DS_API_KEY=<your-dark-sky-api-key>
+  GM_API_KEY=<your-google-maps-api-key>
+  ```
+
+- Build the code with:
+  ```
+  npm run build
+  ```
