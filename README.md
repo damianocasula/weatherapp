@@ -2,13 +2,11 @@
 
 This app allows you to see the current and the weekly weather for your city or any city in the world. It takes weather data from the Dark Sky API and uses Google Maps to support the search of the cities. You can see a live version at: [https://casula.me/weatherapp](https://casula.me/weatherapp).
 
-### New features
+### Features
 
-- Using Dark Sky API instead of OpenWeatherMap
-- Using webpack
-- Using environment variables
+- Using Dark Sky API
 - Detailed weather information for timeline items
-- Better UI
+- Minimal UI
 
 ### How to use the app
 
