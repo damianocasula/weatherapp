@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/damianocasula/weatherapp2.git"
+    "url": "git+https://github.com/damianocasula/weatherapp.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/damianocasula/weatherapp2/issues"
+    "url": "https://github.com/damianocasula/weatherapp/issues"
   },
-  "homepage": "https://github.com/damianocasula/weatherapp2#readme",
+  "homepage": "https://github.com/weatherapp",
   "devDependencies": {
     "dotenv-webpack": "^1.7.0",
     "webpack": "^4.40.2",
