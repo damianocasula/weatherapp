@@ -1,5 +1,4 @@
 # weatherapp
-## new version of damianocasula/weatherapp
 
 This app allows you to see the current and the weekly weather for your city or any city in the world. It takes weather data from the Dark Sky API and uses Google Maps to support the search of the cities. You can see a live version at: [https://casula.me/weatherapp](https://casula.me/weatherapp).
 
