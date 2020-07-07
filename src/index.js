@@ -47,7 +47,7 @@ $(document).ready(() => {
   */
 
   // Force feather icons replace
-  let forceFeatherReplace = () => {
+  const forceFeatherReplace = () => {
     feather.replace({
       class: 'feather feather-x',
       width: 96,
@@ -57,7 +57,7 @@ $(document).ready(() => {
   }
 
   // Update the city info using Google Maps API
-  let updateCityInfo = () => {
+  const updateCityInfo = () => {
     $.getJSON(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&sensor=true&key=${GM_API_KEY}`, data => {
       const results = data.results
 
@@ -69,7 +69,7 @@ $(document).ready(() => {
 
         // Retrieve city and country names
         for (let r = 0, rl = results.length; r < rl; r += 1) {
-          let result = results[r]
+          const result = results[r]
 
           if (!city && result.types[0] === 'locality') {
             for (c = 0, lc = result.address_components.length; c < lc; c += 1) {
@@ -113,7 +113,7 @@ $(document).ready(() => {
   }
 
   // Change the background depending on the weather status
-  let updateBackground = status => {
+  const updateBackground = status => {
     $('body').css('background-image', `url('img/backgrounds/${status}.jpg')`)
 
     switch (status) {
@@ -130,7 +130,7 @@ $(document).ready(() => {
   }
 
   // Feather icon name depending on Dark Sky icon name
-  let convertIconName = icon => {
+  const convertIconName = icon => {
     switch (icon) {
       case 'clear-day':
         return 'sun'
@@ -153,13 +153,13 @@ $(document).ready(() => {
   }
 
   // Change the icon depending on the weather status
-  let updateStatusIcon = icon => {
+  const updateStatusIcon = icon => {
     $('.info-icon').html(`<i data-feather="${convertIconName(icon)}"></i>`)
     forceFeatherReplace()
   }
 
   // Update current weather info
-  let updateCurrentWeatherInfo = currentWeather => {
+  const updateCurrentWeatherInfo = currentWeather => {
     // Update the page elements for current weather info
     $('#description').html(currentWeather.summary)
     $('#temperature').html(Math.round(fahrenheitToCelsius(currentWeather.temperature)))
@@ -173,7 +173,7 @@ $(document).ready(() => {
   }
 
   // Change the 7-days forecast icons depending on the weather statuses
-  let updateTimelineIcons = days => {
+  const updateTimelineIcons = days => {
     $('.tile').each((i, element) => {
       $(element).children('.info-icon').html(`<i data-feather="${convertIconName(days[i].icon)}"></i>`)
       forceFeatherReplace()
@@ -181,11 +181,11 @@ $(document).ready(() => {
   }
 
   // Update 7 days forecast
-  let updateTimelineWeatherInfo = weeklyWeather => {
+  const updateTimelineWeatherInfo = weeklyWeather => {
     $('.tile').each((i, element) => {
       // Retrieve name of the day of the week
       const utcSeconds = weeklyWeather[i].time
-      let date = new Date(0)
+      const date = new Date(0)
       date.setUTCSeconds(utcSeconds)
       const dayName = date.toString().split(' ')[0]
 
@@ -203,7 +203,7 @@ $(document).ready(() => {
   }
 
   // Get weather info from Dark Sky API and update the app status
-  let updateWeatherInfo = () => {
+  const updateWeatherInfo = () => {
     $.getJSON(`${CORS_PROXY}https://api.darksky.net/forecast/${DS_API_KEY}/${lat},${lon}`, data => {
       // Update current weather info and info in the timeline
       updateCurrentWeatherInfo(data.currently)
@@ -213,7 +213,7 @@ $(document).ready(() => {
   }
 
   // Update the weather using a city name (Google Maps API)
-  let updateUsingCity = (city, callback) => {
+  const updateUsingCity = (city, callback) => {
     $.getJSON(`https://maps.googleapis.com/maps/api/geocode/json?address=${city}&bounds=46,0|34,20&key=${GM_API_KEY}`, data => {
       if (data.status === 'OK') {
         // Obtain the latitude and the longitude of a certain city using Google Maps API
@@ -240,16 +240,16 @@ $(document).ready(() => {
   }
 
   // Convert Fahrenheit to Celsius
-  let fahrenheitToCelsius = fahrenheit => (fahrenheit - 32) * 5 / 9
+  const fahrenheitToCelsius = fahrenheit => (fahrenheit - 32) * 5 / 9
 
   // Get date formatted to Mmm DD YYYY
-  let formatDate = date => {
+  const formatDate = date => {
     const currentDayArray = date.toString().split(' ')
     return `${currentDayArray[1]} ${currentDayArray[2]} ${currentDayArray[3]}`
   }
 
   // Get time formatted to Mmm DD YYYY
-  let formatTime = date => {
+  const formatTime = date => {
     const currentDayArray = date.toString().split(' ')
     const currentTimeArray = currentDayArray[4].split(':')
     return `${currentTimeArray[0]}:${currentTimeArray[1]}`
@@ -324,7 +324,7 @@ $(document).ready(() => {
 
     // Format date
     const utcSeconds = weatherInfo.time
-    let date = new Date(0)
+    const date = new Date(0)
     date.setUTCSeconds(utcSeconds)
     $('#details-day').html(formatDate(date))
 
